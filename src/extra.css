@@ -1,0 +1,23 @@
+:root[data-theme="light"]{color:#17283c;background:#f5f8fc;--bg:#f5f8fc;--panel:#fff;--line:rgba(45,70,100,.16);--muted:#526279;--cyan:#168a80}
+:root[data-theme="light"] body{background:var(--bg);color:#17283c}
+.theme-light{background:#f5f8fc;color:#17283c}
+.theme-light .header{border-bottom-color:#dce5ef}
+.theme-light .nav a,.theme-light .brand,.theme-light .hero-lede,.theme-light .intro-content p,.theme-light .section-heading p,.theme-light .project-summary,.theme-light .timeline-content p{color:#41536a}
+.theme-light .skill-card,.theme-light .project-card,.theme-light .contact-form,.theme-light .architecture-card,.theme-light .credential-card{background:#fff;border-color:#dce5ef;color:#17283c}
+.theme-light .skill-card h3,.theme-light .project-card h3,.theme-light .contact-form label,.theme-light .form-heading h3{color:#17283c}
+.theme-light .tag{background:#edf4f8;color:#41536a}
+.theme-light .empty-state{color:#53677e;border-color:#c6d1dc}
+.theme-light .menu-toggle{color:#17283c}
+.admin-field select{width:100%;border:1px solid #d8e0ea;border-radius:8px;padding:11px 12px;background:#fff;color:#15243a;font:inherit;font-weight:400}
+.theme-toggle{border:1px solid #63718455;background:transparent;color:inherit;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;cursor:pointer}
+.api-notice{max-width:1100px;margin:14px auto 0;padding:10px 14px;border-radius:8px;background:#fff2e2;color:#8b4e0b;font-size:13px}
+.empty-state{padding:20px;color:#9aadc1;border:1px dashed #526174;border-radius:10px}
+.profile-photo{width:260px;height:300px;object-fit:cover;object-position:center 20%;border-radius:45% 45% 18px 18px;border:1px solid #3a5970;box-shadow:0 20px 60px #0004}
+.project-filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px}.filter-chip{padding:8px 13px;border:1px solid #41556b;border-radius:30px;background:transparent;color:inherit;cursor:pointer}.filter-chip.active{background:#43c9b2;color:#08202b;border-color:#43c9b2}
+.project-image{width:100%;max-height:230px;object-fit:cover;border-radius:10px;margin:0 0 15px}.project-actions{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0}
+.skill-level{display:flex;align-items:center;gap:10px;color:#8fa3b7;font-size:11px;margin-top:12px}.skill-level span{flex:1;height:4px;background:#304254;border-radius:8px;overflow:hidden}.skill-level i{display:block;height:100%;background:#53d1bc}
+.credential-line{margin-top:8px}.admin-entry{font-size:12px;color:#8da1b6;text-decoration:none}.honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+.project-detail-page{padding-top:95px;padding-bottom:100px;min-height:75vh}.project-detail-page h1{font-size:clamp(36px,6vw,66px);max-width:900px;margin:16px 0}.project-detail-page .project-summary{max-width:800px;line-height:1.8;color:#a9b5c8}.project-detail-page .project-image{max-height:520px;margin:35px 0;object-fit:contain;object-position:left}.project-detail-page .project-status{margin-top:24px}.theme-light .project-detail-page .project-summary{color:#41536a}
+.admin-not-found{margin:auto;max-width:720px;padding:100px 24px;color:#dbe7f4;text-align:center}.admin-not-found a{color:#50d4bd}
+@media(max-width:1050px){.profile-photo{width:220px;height:260px}}
+@media(max-width:720px){.profile-photo{width:145px;height:170px}}
