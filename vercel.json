@@ -1,3 +1,14 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://atul-dubey-portfolio-api.onrender.com/api/:path*"
+    },
+    {
+      "source": "/media/:path*",
+      "destination": "https://atul-dubey-portfolio-api.onrender.com/media/:path*"
+    },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }

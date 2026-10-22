@@ -99,20 +99,29 @@ python manage.py test
 
 The backend tests cover public reads, staff-only writes/messages, and contact validation. Also manually try a profile edit, project create/edit/publish/delete, image upload, resume download, contact submission, and mobile layout before deployment.
 
-## Deployment
+## Deployment (free demo)
 
-Deploy the Django API on Render and attach a managed PostgreSQL database. Set backend environment variables in the Render dashboard:
+The repository includes a Vercel frontend and a Render Django/PostgreSQL Blueprint. The Vercel rewrites proxy `/api/*` and `/media/*` to the Render API while keeping browser requests on the Vercel origin. This lets the admin session use same-origin cookies.
 
-- `DJANGO_SECRET_KEY`: generate a unique random secret.
-- `DJANGO_DEBUG=False`
-- `DJANGO_ALLOWED_HOSTS`: API host only.
-- `DATABASE_URL`: Render PostgreSQL connection string.
-- `CORS_ALLOWED_ORIGINS` and `CSRF_TRUSTED_ORIGINS`: exact HTTPS frontend origin.
-- `SESSION_COOKIE_SAMESITE=None` and `CSRF_COOKIE_SAMESITE=None` when frontend and API are on separate sites; production cookies are Secure.
-- `AWS_STORAGE_BUCKET_NAME`, `AWS_S3_REGION_NAME`, `AWS_ACCESS_KEY_ID`, and `AWS_SECRET_ACCESS_KEY` for persistent media storage. Keep the bucket private; Django returns signed media URLs.
+### 1. Deploy the frontend on Vercel
 
-Set the Render service root directory to `backend`; use `pip install -r requirements.txt && python manage.py collectstatic --noinput` as the build command and `python manage.py migrate && gunicorn config.wsgi:application` as the start command. Create a superuser with a one-off shell/console command after deploying. Configure CORS/CSRF origins before testing login.
+1. Push this repository to GitHub and import it in Vercel.
+2. Use the repository root, the Vite preset, build command `npm run build`, and output directory `dist`.
+3. Do not set `VITE_API_URL`; production API requests use the proxy in `vercel.json`.
+4. Note the final production domain, for example `https://your-project.vercel.app`.
 
-Deploy the frontend to Vercel. Set `VITE_API_URL` to the HTTPS Django API URL, then deploy. `vercel.json` routes project detail URLs and `/admin-panel/` through the React app. Configure the backend's CORS and trusted CSRF origins to match the deployed Vercel domain exactly. Verify admin login, a content edit, image/resume downloads, and a contact submission against production.
+### 2. Deploy the API and database on Render
 
-The app is not deployed by this repository setup. Production media storage and a real database must be configured before deploying.
+1. In Render, create a Blueprint and connect this repository. Render reads `render.yaml` from the repository root.
+2. The Blueprint creates a free Django web service in Singapore and a free PostgreSQL database. When prompted for `CORS_ALLOWED_ORIGINS` and `CSRF_TRUSTED_ORIGINS`, use the exact Vercel origin from step 1 (include `https://`, no trailing slash).
+3. Enter a username, email, and strong initial password for `DJANGO_SUPERUSER_USERNAME`, `DJANGO_SUPERUSER_EMAIL`, and `DJANGO_SUPERUSER_PASSWORD`.
+4. Wait for the Render service to become healthy, then remove `DJANGO_SUPERUSER_PASSWORD` from its environment and deploy the change. The existing account stays in the database; the bootstrap command won't reset it.
+5. Visit the Vercel URL, check the portfolio and `/admin-panel/`, then upload a replacement resume from the Resume section if needed.
+
+The seed command adds starter portfolio content only when records are missing. Review the profile, project, experience, education, and certification details in the dashboard before sharing the site.
+
+### Free-plan limits
+
+This is a demo setup. Render's free web service sleeps after 15 minutes without requests and can take about a minute to wake up. Free Render Postgres expires after 30 days; data can be upgraded during the following 14-day grace period before deletion. The free web service has no persistent disk, so files uploaded through the dashboard can disappear after a restart or redeploy. The included `public/Atuldubey.pdf` is served from Vercel as the default resume, so the resume download still works if no CMS resume is available. Upgrade the Render database and web service and configure persistent media storage before relying on the site long-term.
+
+See [Render's free service limits](https://render.com/docs/free), [Render's Django deployment guide](https://render.com/docs/deploy-django), and [Vercel rewrites](https://vercel.com/docs/routing/rewrites).
