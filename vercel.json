@@ -2,6 +2,22 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
+      "source": "/api/auth/csrf/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/auth/csrf/"
+    },
+    {
+      "source": "/api/auth/login/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/auth/login/"
+    },
+    {
+      "source": "/api/auth/me/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/auth/me/"
+    },
+    {
+      "source": "/api/auth/logout/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/auth/logout/"
+    },
+    {
       "source": "/api/:path*",
       "destination": "https://atuldubey-portfolio.onrender.com/api/:path*"
     },
@@ -9,6 +25,9 @@
       "source": "/media/:path*",
       "destination": "https://atuldubey-portfolio.onrender.com/media/:path*"
     },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
