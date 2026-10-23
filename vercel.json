@@ -2,6 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
+      "source": "/api/profile/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/profile/"
+    },
+    {
       "source": "/api/auth/csrf/",
       "destination": "https://atuldubey-portfolio.onrender.com/api/auth/csrf/"
     },
