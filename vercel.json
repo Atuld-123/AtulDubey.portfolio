@@ -22,6 +22,66 @@
       "destination": "https://atuldubey-portfolio.onrender.com/api/auth/logout/"
     },
     {
+      "source": "/api/settings/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/settings/"
+    },
+    {
+      "source": "/api/resume/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/resume/"
+    },
+    {
+      "source": "/api/contact/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/contact/"
+    },
+    {
+      "source": "/api/skills/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/skills/"
+    },
+    {
+      "source": "/api/skills/:id/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/skills/:id/"
+    },
+    {
+      "source": "/api/projects/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/projects/"
+    },
+    {
+      "source": "/api/projects/:id/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/projects/:id/"
+    },
+    {
+      "source": "/api/experience/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/experience/"
+    },
+    {
+      "source": "/api/experience/:id/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/experience/:id/"
+    },
+    {
+      "source": "/api/education/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/education/"
+    },
+    {
+      "source": "/api/education/:id/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/education/:id/"
+    },
+    {
+      "source": "/api/certifications/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/certifications/"
+    },
+    {
+      "source": "/api/certifications/:id/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/certifications/:id/"
+    },
+    {
+      "source": "/api/messages/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/messages/"
+    },
+    {
+      "source": "/api/messages/:id/",
+      "destination": "https://atuldubey-portfolio.onrender.com/api/messages/:id/"
+    },
+    {
       "source": "/api/:path*",
       "destination": "https://atuldubey-portfolio.onrender.com/api/:path*"
     },
