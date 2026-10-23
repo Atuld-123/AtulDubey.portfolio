@@ -10,7 +10,7 @@ const resources = {
   certifications: { label: 'Certifications', endpoint: '/api/certifications/', icon: Award, fields: [['name', 'Certification'], ['issuer', 'Issuer'], ['issue_date', 'Issue date'], ['credential_url', 'Credential URL'], ['order', 'Display order', 'number']] },
   messages: { label: 'Contact messages', endpoint: '/api/messages/', icon: MessageSquare, readOnly: true, fields: [['name', 'Name'], ['email', 'Email'], ['subject', 'Subject'], ['message', 'Message', 'textarea'], ['created_at', 'Received'], ['is_read', 'Read', 'checkbox']] },
 };
-const DEFAULT_SKILL_PROFICIENCY = 70;
+const DEFAULT_SKILL_PROFICIENCY = 0;
 
 const panels = [
   ['overview', 'Overview', LayoutDashboard], ['profile', 'Profile', UserRound], ['about', 'About me', UserRound], ['skills', 'Skills', Wrench], ['projects', 'Projects', FolderKanban], ['experience', 'Experience', BriefcaseBusiness], ['education', 'Education', GraduationCap], ['certifications', 'Certifications', Award], ['resume', 'Resume', FileText], ['social', 'Social links', UserRound], ['messages', 'Contact messages', MessageSquare], ['settings', 'Website settings', Settings],
@@ -81,7 +81,7 @@ export default function AdminApp() {
     event.preventDefault(); setBusy(true); setNotice({ text: '', error: false });
     try {
       const spec = resources[panel]; const payload = new FormData();
-      Object.entries(form).forEach(([key, value]) => { if (value === undefined || value === null || key === 'id' || key === 'image_url' || (['image', 'profile_picture'].includes(key) && typeof value === 'string')) return; if (key === 'technologies' && typeof value === 'string') value = value.split(',').map((item) => item.trim()).filter(Boolean); if (value instanceof File) payload.append(key, value); else if (typeof value === 'object') payload.append(key, JSON.stringify(value)); else payload.append(key, String(value)); });
+      Object.entries(form).forEach(([key, value]) => { if (value === undefined || value === null || key === 'id' || key === 'image_url' || (['image', 'profile_picture'].includes(key) && typeof value === 'string')) return; if (key === 'proficiency' && value === '') value = DEFAULT_SKILL_PROFICIENCY; if (key === 'technologies' && typeof value === 'string') value = value.split(',').map((item) => item.trim()).filter(Boolean); if (value instanceof File) payload.append(key, value); else if (typeof value === 'object') payload.append(key, JSON.stringify(value)); else payload.append(key, String(value)); });
       const endpoint = spec.endpoint + (editing !== 'new' ? `${editing}/` : '');
       await api(endpoint, { method: editing === 'new' ? 'POST' : 'PATCH', body: payload }); setEditing(null); setNotice({ text: 'Changes saved.', error: false }); await loadPanel(panel);
     } catch (e) { setNotice({ text: e.message, error: true }); } finally { setBusy(false); }

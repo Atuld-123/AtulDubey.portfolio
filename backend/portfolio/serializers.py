@@ -41,7 +41,7 @@ class SkillSerializer(PublicModelSerializer):
         read_only_fields = ['id']
 
     def create(self, validated_data):
-        validated_data.setdefault('proficiency', 70)
+        validated_data.setdefault('proficiency', 0)
         return super().create(validated_data)
 
 class ProjectSerializer(PublicModelSerializer):

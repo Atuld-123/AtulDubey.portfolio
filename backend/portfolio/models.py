@@ -30,7 +30,7 @@ class Skill(OrderedModel):
     name = models.CharField(max_length=100)
     category = models.CharField(max_length=60, choices=CATEGORIES, default='Other')
     description = models.CharField(max_length=300, blank=True)
-    proficiency = models.PositiveSmallIntegerField(default=70, validators=[MinValueValidator(0), MaxValueValidator(100)])
+    proficiency = models.PositiveSmallIntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(100)])
     icon = models.CharField(max_length=80, blank=True)
     class Meta: ordering = ['order', 'name']
     def __str__(self): return self.name
