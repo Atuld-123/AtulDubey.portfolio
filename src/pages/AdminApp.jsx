@@ -76,7 +76,7 @@ export default function AdminApp() {
   function handleField(event) { const { name, type, checked, value, files } = event.target; setForm((current) => ({ ...current, [name]: type === 'checkbox' ? checked : type === 'file' ? files?.[0] : value })); }
   function selectPanel(nextPanel) { setPanelLoading(true); setData([]); setPanel(nextPanel); setEditing(null); setNotice({ text: '', error: false }); }
   function startNew() { setEditing('new'); setForm(panel === 'skills' ? { proficiency: DEFAULT_SKILL_PROFICIENCY } : panel === 'projects' ? { is_published: true, status: 'Completed' } : {}); setNotice({ text: '', error: false }); }
-  function startEdit(item) { setEditing(item.id); const next = { ...item }; if (Array.isArray(next.technologies)) next.technologies = next.technologies.join(', '); if (keyIsOtherLinks(next.other_links)) next.other_links = JSON.stringify(next.other_links, null, 2); setForm(next); setNotice({ text: '', error: false }); }
+  function startEdit(item) { setEditing(item.id); const next = { ...item }; if (panel === 'skills') next.proficiency = item.proficiency ?? DEFAULT_SKILL_PROFICIENCY; if (Array.isArray(next.technologies)) next.technologies = next.technologies.join(', '); if (keyIsOtherLinks(next.other_links)) next.other_links = JSON.stringify(next.other_links, null, 2); setForm(next); setNotice({ text: '', error: false }); }
   async function saveResource(event) {
     event.preventDefault(); setBusy(true); setNotice({ text: '', error: false });
     try {

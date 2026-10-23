@@ -33,12 +33,16 @@ class ProfileSerializer(PublicModelSerializer):
         return super().update(instance, validated_data)
 
 class SkillSerializer(PublicModelSerializer):
-    proficiency = serializers.IntegerField(default=70, min_value=0, max_value=100)
+    proficiency = serializers.IntegerField(required=False, min_value=0, max_value=100)
 
     class Meta:
         model = Skill
         fields = '__all__'
         read_only_fields = ['id']
+
+    def create(self, validated_data):
+        validated_data.setdefault('proficiency', 70)
+        return super().create(validated_data)
 
 class ProjectSerializer(PublicModelSerializer):
     technologies = FlexibleJSONField(required=False)
