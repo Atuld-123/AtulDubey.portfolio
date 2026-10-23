@@ -33,6 +33,8 @@ class ProfileSerializer(PublicModelSerializer):
         return super().update(instance, validated_data)
 
 class SkillSerializer(PublicModelSerializer):
+    proficiency = serializers.IntegerField(default=70, min_value=0, max_value=100)
+
     class Meta:
         model = Skill
         fields = '__all__'

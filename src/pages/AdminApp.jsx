@@ -10,6 +10,7 @@ const resources = {
   certifications: { label: 'Certifications', endpoint: '/api/certifications/', icon: Award, fields: [['name', 'Certification'], ['issuer', 'Issuer'], ['issue_date', 'Issue date'], ['credential_url', 'Credential URL'], ['order', 'Display order', 'number']] },
   messages: { label: 'Contact messages', endpoint: '/api/messages/', icon: MessageSquare, readOnly: true, fields: [['name', 'Name'], ['email', 'Email'], ['subject', 'Subject'], ['message', 'Message', 'textarea'], ['created_at', 'Received'], ['is_read', 'Read', 'checkbox']] },
 };
+const DEFAULT_SKILL_PROFICIENCY = 70;
 
 const panels = [
   ['overview', 'Overview', LayoutDashboard], ['profile', 'Profile', UserRound], ['about', 'About me', UserRound], ['skills', 'Skills', Wrench], ['projects', 'Projects', FolderKanban], ['experience', 'Experience', BriefcaseBusiness], ['education', 'Education', GraduationCap], ['certifications', 'Certifications', Award], ['resume', 'Resume', FileText], ['social', 'Social links', UserRound], ['messages', 'Contact messages', MessageSquare], ['settings', 'Website settings', Settings],
@@ -74,7 +75,7 @@ export default function AdminApp() {
   async function logout() { try { await api('/api/auth/logout/', { method: 'POST' }); setToast('You have signed out successfully.'); } catch (e) { setNotice({ text: e.message, error: true }); } finally { setUser(null); setLogin({ username: '', password: '' }); setPanel('overview'); } }
   function handleField(event) { const { name, type, checked, value, files } = event.target; setForm((current) => ({ ...current, [name]: type === 'checkbox' ? checked : type === 'file' ? files?.[0] : value })); }
   function selectPanel(nextPanel) { setPanelLoading(true); setData([]); setPanel(nextPanel); setEditing(null); setNotice({ text: '', error: false }); }
-  function startNew() { setEditing('new'); setForm({ is_published: true, status: 'Completed', proficiency: 70 }); setNotice({ text: '', error: false }); }
+  function startNew() { setEditing('new'); setForm(panel === 'skills' ? { proficiency: DEFAULT_SKILL_PROFICIENCY } : panel === 'projects' ? { is_published: true, status: 'Completed' } : {}); setNotice({ text: '', error: false }); }
   function startEdit(item) { setEditing(item.id); const next = { ...item }; if (Array.isArray(next.technologies)) next.technologies = next.technologies.join(', '); if (keyIsOtherLinks(next.other_links)) next.other_links = JSON.stringify(next.other_links, null, 2); setForm(next); setNotice({ text: '', error: false }); }
   async function saveResource(event) {
     event.preventDefault(); setBusy(true); setNotice({ text: '', error: false });
