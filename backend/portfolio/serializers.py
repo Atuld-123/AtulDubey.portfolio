@@ -14,6 +14,12 @@ class FlexibleJSONField(serializers.JSONField):
                 self.fail('invalid')
         return super().to_internal_value(data)
 
+class OptionalBlankIntegerField(serializers.IntegerField):
+    def to_internal_value(self, data):
+        if data == '':
+            return None
+        return super().to_internal_value(data)
+
 class ProfileSerializer(PublicModelSerializer):
     other_links = FlexibleJSONField(required=False)
     clear_profile_picture = serializers.BooleanField(write_only=True, required=False)
@@ -33,7 +39,7 @@ class ProfileSerializer(PublicModelSerializer):
         return super().update(instance, validated_data)
 
 class SkillSerializer(PublicModelSerializer):
-    proficiency = serializers.IntegerField(required=False, min_value=0, max_value=100)
+    proficiency = OptionalBlankIntegerField(required=False, allow_null=True, min_value=0, max_value=100)
 
     class Meta:
         model = Skill
@@ -41,7 +47,7 @@ class SkillSerializer(PublicModelSerializer):
         read_only_fields = ['id']
 
     def create(self, validated_data):
-        validated_data.setdefault('proficiency', 0)
+        validated_data.setdefault('proficiency', None)
         return super().create(validated_data)
 
 class ProjectSerializer(PublicModelSerializer):
