@@ -18,6 +18,7 @@
 .skill-level{display:flex;align-items:center;gap:10px;color:#8fa3b7;font-size:11px;margin-top:12px}.skill-level span{flex:1;height:4px;background:#304254;border-radius:8px;overflow:hidden}.skill-level i{display:block;height:100%;background:#53d1bc}
 .credential-line{margin-top:8px}.admin-entry{font-size:12px;color:#8da1b6;text-decoration:none}.honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
 .credential-list{display:grid;gap:12px}.credential-list .credential-card{min-width:0}
+.brand-avatar{overflow:hidden;border-radius:50%;padding:0;background:transparent}.brand-avatar img{display:block;width:100%;height:100%;object-fit:cover}
 .project-detail-page{padding-top:95px;padding-bottom:100px;min-height:75vh}.project-detail-page h1{font-size:clamp(36px,6vw,66px);max-width:900px;margin:16px 0}.project-detail-page .project-summary{max-width:800px;line-height:1.8;color:#a9b5c8}.project-detail-page .project-image{max-height:520px;margin:35px 0;object-fit:contain;object-position:left}.project-detail-page .project-status{margin-top:24px}.theme-light .project-detail-page .project-summary{color:#41536a}
 .admin-not-found{margin:auto;max-width:720px;padding:100px 24px;color:#dbe7f4;text-align:center}.admin-not-found a{color:#50d4bd}
 @media(max-width:1050px){.profile-photo{width:220px;height:260px}}
