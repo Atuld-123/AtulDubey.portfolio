@@ -1,10 +1,19 @@
-const API_ROOT = import.meta.env.VITE_API_URL ?? (import.meta.env.DEV ? 'http://127.0.0.1:8000' : '');
+// In production, use the site's same-origin Vercel rewrites so Django session
+// and CSRF cookies stay attached to the portfolio domain.
+const API_ROOT = import.meta.env.DEV ? (import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000') : '';
 
 let csrfToken = '';
 export async function refreshCsrf() {
-  const response = await fetch(`${API_ROOT}/api/auth/csrf/`, { credentials: 'include' });
-  if (!response.ok) throw new Error('Could not start a secure session.');
-  const data = await response.json();
+  let response;
+  try {
+    response = await fetch(`${API_ROOT}/api/auth/csrf/`, { credentials: 'include' });
+  } catch {
+    throw new Error('Could not reach the secure session service. Refresh the page and try again.');
+  }
+  const contentType = response.headers.get('content-type') || '';
+  const data = contentType.includes('application/json') ? await response.json() : null;
+  if (!response.ok) throw new Error(data?.detail || `Could not start a secure session (HTTP ${response.status}).`);
+  if (!data?.csrfToken) throw new Error('The secure session service returned no CSRF token. Check the API proxy and try again.');
   csrfToken = data.csrfToken || '';
   return csrfToken;
 }
